@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+
+  <div class="center">
+    <div class="sound-keys"> <!--Style .keys-->
+      <div data-key="65" class="key">
+        <kbd>A</kbd>
+        <span class="sound">clap</span>
+      </div>
+      <div data-key="83" class="key">
+        <kbd>S</kbd>
+        <span class="sound">hihat</span>
+      </div>
+      <div data-key="68" class="key">
+        <kbd>D</kbd>
+        <span class="sound">kick</span>
+      </div>
+      <div data-key="70" class="key">
+        <kbd>F</kbd>
+        <span class="sound">openhat</span>
+      </div>
+      <div data-key="71" class="key">
+        <kbd>G</kbd>
+        <span class="sound">boom</span>
+      </div>
+      <div data-key="72" class="key">
+        <kbd>H</kbd>
+        <span class="sound">ride</span>
+      </div>
+      <div data-key="74" class="key">
+        <kbd>J</kbd>
+        <span class="sound">snare</span>
+      </div>
+      <div data-key="75" class="key">
+        <kbd>K</kbd>
+        <span class="sound">tom</span>
+      </div>
+      <div data-key="76" class="key">
+          <kbd>L</kbd>
+          <span class="sound">tink</span>
+      </div>
+    </div>
+
+    <div class="disney-keys"> <!--Style .keys-->
+      <div data-key="90" class="key">
+          <kbd>Z</kbd>
+          <span class="sound">Alladin</span>
+      </div>
+      <div data-key="88" class="key">
+          <kbd>X</kbd>
+          <span class="sound">Belle</span>
+      </div>
+      <div data-key="67" class="key">
+          <kbd>C</kbd>
+          <span class="sound">Ariel</span>
+      </div>
+      <div data-key="86" class="key">
+          <kbd>V</kbd>
+          <span class="sound">Hercules</span>
+      </div>
+      <div data-key="66" class="key">
+          <kbd>B</kbd>
+          <span class="sound">Mulan</span>
+      </div>
+      <div data-key="78" class="key">
+          <kbd>N</kbd>
+          <span class="sound">Tarzan</span>
+      </div>
+      <div data-key="77" class="key">
+          <kbd>M</kbd>
+          <span class="sound">Tangled</span>
+    </div>
+  </div>  
+</div>
+
+  <!--Sound-->
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+  <!--Disney-->
+  <audio data-key="90" src="sounds/alladin.wav"></audio>
+  <audio data-key="88" src="sounds/belle.wav"></audio>
+  <audio data-key="67" src="sounds/ariel.wav"></audio>
+  <audio data-key="86" src="sounds/hercules.wav"></audio>
+  <audio data-key="66" src="sounds/mulan.wav"></audio>
+  <audio data-key="78" src="sounds/tarzan.wav"></audio>
+  <audio data-key="77" src="sounds/tangled.wav"></audio>
+
+<script>
+  function playSound(e){
+    //Wanneer je drukt op een key selecteer de bijhorende audio & key-design
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);  
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);    
+    
+    if(!audio) return;                                                      //Als er geen audio bestaat met die data-key --> end function.
+    
+    audio.currentTime = 0;                                                  //Rewind to start-time, zodat het niet eerst de audio afmaakt voordat je weer kan drukken.
+    audio.play();
+
+    key.classList.add('playing');                                           //Add design van Playing op de geselecteerde key.
+      //key.classList.remove('playing');
+      //key.classList.toggle('playing');
+
+    // if(audio === document.querySelector(`audio[data-key="90"]`)){
+      
+    //   if((audio.play === document.querySelector(`audio[data-key="88"]`)) AND (audio.play())){
+    //     console.log(audio);
+    //     audio.stop();
+    //   }
+    // }
+
+    const sound1 = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    if (sound1=! audio){
+      console.log(sound1)
+    }
+  }
+
+  function removeTransition(e){
+    if(e.propertyName !== 'transform') return; //Skip functie als het niet een transform bezig is
+    this.classList.remove('playing');
+  }
+  //Function komt in actie wanneer een keydown-event plaatsvind;
+  window.addEventListener('keydown', playSound);
+
+  //Seleteer de gedrukte key-design
+  const keys = document.querySelectorAll('.key');                                     //Een array van elke key-design die je aanklikt.
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));       //Doe RemoveTransition functie
+    
+</script>
+
+</body>
+</html>
