@@ -7,6 +7,5 @@ Compile by: setting "Live Watch" on. <br>
 
 ---
 ```
-                                           ~ Never stop learning, because life never stops teaching. ~
-                                              
+~ Never stop learning, because life never stops teaching. ~                                              
 ```
